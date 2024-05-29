@@ -1,0 +1,39 @@
+<%- include('partials/header.ejs');-%>
+
+<main>
+    
+<div class = "container">
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Staus</th>
+            <th>Delete</th>
+        </tr>
+        <% tasks.forEach(task => { %>
+            <tr>
+                <th><%= task.task %></th>
+                <th>
+                    <% if (!task.completed) { %>
+                        <form action="/complete/<%= task.id %>" method="POST" style="display: inline;">
+                            <button type="submit">Complete</button>
+                        </form>
+                    <% } else { %>
+                        <span>Completed</span>
+                    <% } %>
+                </th>
+                <th>
+                    <form action="/delete/<%= task.id %>" method="POST" style="display: inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </th>
+            </tr>
+        <% }) %>
+    </table>
+    
+    <form action="/add" method = "POST">
+        <input type="text" name = "task" placeholder="Add a new task" required>
+        <button type = "submit">Add</button>
+    </form>
+</div>
+
+</main>
